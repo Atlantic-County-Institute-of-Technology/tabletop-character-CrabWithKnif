@@ -1,8 +1,10 @@
+//Importing random and arraylists to use in the project for stats and feats
 import java.util.ArrayList;
 import java.util.Random;
-
+//Creates the character class
 public class Character {
-
+    //Initializes variables used throughout both the class and subclass.
+    //These are the stats, name, level, hp, ac, and feats list
     protected int str;
     protected int dex;
     protected int con;
@@ -14,7 +16,8 @@ public class Character {
     protected int hp;
     protected int ac;
     protected ArrayList<String> feats;
-
+    //Blank class constructor, for if a character is created with no elements given.
+    //Initializes all variables to a base value, name to player, and pulls the hp and ac for level 1
     public Character(){
         this.name = "player";
         this.lvl = 1;
@@ -26,9 +29,9 @@ public class Character {
         this.cha = 10;
         this.hp = calculateHP();
         this.ac = calculateAC();
-        feats = new ArrayList<String>();
+        feats = new ArrayList<>();
     }
-
+    //Class constructor
     public Character(String name, int lvl){
         this.name = name;
         this.lvl = lvl;
@@ -40,7 +43,7 @@ public class Character {
         this.cha = d6(3);
         this.hp = calculateHP();
         this.ac = calculateAC();
-        feats = new ArrayList<String>();
+        feats = new ArrayList<>();
     }
 
     private int d6(int times){
@@ -82,7 +85,7 @@ public class Character {
 
     public String toString(){
         String outstring = "";
-        outstring += "Character: " + name + " | Level: " + lvl + " | Class\n";
+        outstring += "Character: " + name + " | Level: " + lvl + " | Class: " + this.getClass().getSimpleName() + "\n";
         outstring += "HP: " + hp + " | AC: " + ac +"\n";
         outstring += "STR: " + str + " | DEX: " + dex + " | CON: " + con + "\n";
         outstring += "INT: " + intl + " | Wis: " + wis + " | CHA: " + cha + "\n";
@@ -94,6 +97,14 @@ public class Character {
 
 class Barbarian extends Character{
     public Barbarian(){
+        super();
+        this.str += 2;
+        this.con += 1;
+        addFeat("Rage");
+        addFeat("Unarmored Defense");
+    }
+    public Barbarian(String name, int lvl){
+        super(name, lvl);
         this.str += 2;
         this.con += 1;
         addFeat("Rage");
@@ -103,6 +114,14 @@ class Barbarian extends Character{
 
 class Bard extends Character{
     public Bard(){
+        super();
+        this.cha += 2;
+        this.dex += 1;
+        addFeat("Inspiration");
+        addFeat("Jack of all Trades");
+    }
+    public Bard(String name, int lvl){
+        super(name, lvl);
         this.cha += 2;
         this.dex += 1;
         addFeat("Inspiration");
@@ -112,6 +131,14 @@ class Bard extends Character{
 
 class Cleric extends Character{
     public Cleric(){
+        super();
+        this.wis += 2;
+        this.con += 1;
+        addFeat("Channel Divinity");
+        addFeat("Turn Undead");
+    }
+    public Cleric(String name, int lvl){
+        super(name, lvl);
         this.wis += 2;
         this.con += 1;
         addFeat("Channel Divinity");
@@ -121,6 +148,14 @@ class Cleric extends Character{
 
 class Druid extends Character{
     public Druid(){
+        super();
+        this.wis += 2;
+        this.con += 1;
+        addFeat("Wild Shape");
+        addFeat("Commune with Nature");
+    }
+    public Druid(String name, int lvl){
+        super(name, lvl);
         this.wis += 2;
         this.con += 1;
         addFeat("Wild Shape");
@@ -130,6 +165,14 @@ class Druid extends Character{
 
 class Fighter extends Character{
     public Fighter(){
+        super();
+        this.dex += 2;
+        this.con += 1;
+        addFeat("Action Surge");
+        addFeat("Second Wind");
+    }
+    public Fighter(String name, int lvl){
+        super(name, lvl);
         this.dex += 2;
         this.con += 1;
         addFeat("Action Surge");
@@ -139,6 +182,14 @@ class Fighter extends Character{
 
 class Monk extends Character{
     public Monk(){
+        super();
+        this.dex += 2;
+        this.wis += 1;
+        addFeat("Unarmored Movement");
+        addFeat("Stunning Strike");
+    }
+    public Monk(String name, int lvl){
+        super(name, lvl);
         this.dex += 2;
         this.wis += 1;
         addFeat("Unarmored Movement");
@@ -148,6 +199,14 @@ class Monk extends Character{
 
 class Paladin extends Character{
     public Paladin(){
+        super();
+        this.str += 2;
+        this.cha += 1;
+        addFeat("Divine Smite");
+        addFeat("Aura of Protection");
+    }
+    public Paladin(String name, int lvl){
+        super(name, lvl);
         this.str += 2;
         this.cha += 1;
         addFeat("Divine Smite");
@@ -157,6 +216,14 @@ class Paladin extends Character{
 
 class Ranger extends Character{
     public Ranger(){
+        super();
+        this.dex += 2;
+        this.wis += 1;
+        addFeat("Favored Enemy");
+        addFeat("Surefooted");
+    }
+    public Ranger(String name, int lvl){
+        super(name, lvl);
         this.dex += 2;
         this.wis += 1;
         addFeat("Favored Enemy");
@@ -166,6 +233,14 @@ class Ranger extends Character{
 
 class Rogue extends Character{
     public Rogue(){
+        super();
+        this.dex += 2;
+        this.intl += 1;
+        addFeat("Sneak Attack");
+        addFeat("Uncanny Dodge");
+    }
+    public Rogue(String name, int lvl){
+        super(name, lvl);
         this.dex += 2;
         this.intl += 1;
         addFeat("Sneak Attack");
@@ -175,6 +250,14 @@ class Rogue extends Character{
 
 class Sorcerer extends Character{
     public Sorcerer(){
+        super();
+        this.cha += 2;
+        this.con += 1;
+        addFeat("Wild Magic");
+        addFeat("Flexible Spellcasting");
+    }
+    public Sorcerer(String name, int lvl){
+        super(name, lvl);
         this.cha += 2;
         this.con += 1;
         addFeat("Wild Magic");
@@ -184,6 +267,14 @@ class Sorcerer extends Character{
 
 class Warlock extends Character{
     public Warlock(){
+        super();
+        this.cha += 2;
+        this.con += 1;
+        addFeat("Eldritch Patron");
+        addFeat("Pact Magic");
+    }
+    public Warlock(String name, int lvl){
+        super(name, lvl);
         this.cha += 2;
         this.con += 1;
         addFeat("Eldritch Patron");
@@ -193,6 +284,14 @@ class Warlock extends Character{
 
 class Wizard extends Character{
     public Wizard(){
+        super();
+        this.intl += 2;
+        this.con += 1;
+        addFeat("Arcane Recovery");
+        addFeat("Spell Mastery");
+    }
+    public Wizard(String name, int lvl){
+        super(name, lvl);
         this.intl += 2;
         this.con += 1;
         addFeat("Arcane Recovery");
