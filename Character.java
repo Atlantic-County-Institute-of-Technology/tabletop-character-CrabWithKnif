@@ -27,14 +27,17 @@ public class Character {
         this.intl = 10;
         this.wis = 10;
         this.cha = 10;
+        //Calls the later function to calculate the hp and ac
         this.hp = calculateHP();
         this.ac = calculateAC();
         feats = new ArrayList<>();
     }
-    //Class constructor
+    //Class constructor that allows for the input of name and level at the start
     public Character(String name, int lvl){
         this.name = name;
         this.lvl = lvl;
+        //Instead of setting all stats to 10, randomize the stats by pulling 3
+        //randomly generated numbers 1-6 and adding them.
         this.str = d6(3);
         this.dex = d6(3);
         this.con = d6(3);
@@ -46,6 +49,8 @@ public class Character {
         feats = new ArrayList<>();
     }
 
+    //Randomly generate a number n times (although for this version n is always 3)
+    //The generated number is always between 1-6, by randomizing 0-5 and adding one
     private int d6(int times){
         Random rand = new Random();
         int sum = 0;
@@ -55,6 +60,8 @@ public class Character {
         return sum;
     }
 
+    //Uses the given formula to calculate hp, both at level one and
+    //for any future level.
     protected int calculateHP(){
         if (lvl==1){
             hp = 10 + getAbMod(con);
@@ -65,24 +72,30 @@ public class Character {
         return hp;
     }
 
+    //Returns the calculated armor class, which is 10 with added dex mod.
     protected int calculateAC(){
         return 10+getAbMod(dex);
     }
 
+    //Get the ability modifier of the given ability, by subtracting it by 10 and dividing by 2
+    //then, because it's an int, it automatically truncates it, rounding it down.
     protected int getAbMod(int ability){
         return ((ability - 10) / 2);
     }
 
+    //Adds one to the leve count and recalculates hp and ac
     protected void lvlUp(){
         lvl ++;
         this.hp = calculateHP();
         this.ac = calculateAC();
     }
 
+    //Adds a feat to the arrayList feats.
     protected void addFeat(String feat){
         feats.add(feat);
     }
 
+    //Overrides the toString to display all the stats of the newly created character.
     public String toString(){
         String outstring = "";
         outstring += "Character: " + name + " | Level: " + lvl + " | Class: " + this.getClass().getSimpleName() + "\n";
@@ -95,15 +108,25 @@ public class Character {
 
 }
 
+//For the subclasses, first a class is created that extends the superclass, giving it access
+//to all info, variables, and functions of the superclass.
 class Barbarian extends Character{
+    //Class constructor for an empty object.
     public Barbarian(){
+        //Calls the super() function, which just gives this subclass
+        //the exact same class constructor of the superclass.
         super();
+        //It then raises 2 different stats depending on the class, and adds the feats given
+        //by the class.
         this.str += 2;
         this.con += 1;
         addFeat("Rage");
         addFeat("Unarmored Defense");
     }
+    //Class constructor when given a name and level.
     public Barbarian(String name, int lvl){
+        //The same as above, except the super() function call is now
+        //called with the variables needed to call that superclass class constructor
         super(name, lvl);
         this.str += 2;
         this.con += 1;
@@ -112,6 +135,7 @@ class Barbarian extends Character{
     }
 }
 
+//Every other subclass follows the exact same rules as the barbarian featured above.
 class Bard extends Character{
     public Bard(){
         super();
